@@ -10,4 +10,8 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().replace(R.id.container, CounterFragment()).commit();
     }
+
+    override fun onBackPressed() {
+        supportFragmentManager.popBackStack();
+    }
 }
