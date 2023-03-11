@@ -8,6 +8,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager.beginTransaction().replace(com.google.android.material.R.id.container, CounterFragment()).commit();
+        supportFragmentManager.beginTransaction().replace(R.id.container, CounterFragment()).commit();
     }
 }
