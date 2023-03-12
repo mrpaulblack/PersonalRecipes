@@ -31,7 +31,7 @@ class CounterFragment : Fragment() {
             ) {
                 Button(
                     onClick = { viewModel.onCounterClicked() }) {
-                    Text("COUNT!")
+                    Text("COUNT")
                 }
                 Text(counter.toString())
             }
