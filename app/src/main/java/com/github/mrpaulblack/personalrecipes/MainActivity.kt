@@ -5,8 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,49 +22,78 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            personalrecipesTheme {
+            MaterialTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    MessageCard(Message("Android", "Jetpack Compose"))
+                    RecipesGrid(10)
                 }
             }
-
         }
     }
 }
 
-data class Message(val author: String, val body: String)
+data class Recipe(val title: String, val text: String)
 
 @Composable
-fun MessageCard(msg: Message) {
-    Column {
-        Image(
-            painter = painterResource(R.drawable.testpic),
-            contentDescription = "test picture",
-            modifier = Modifier
-                // Set image size to 40 dp
-                .size(150.dp)
-                // Clip image to be shaped as a circle
-                .clip(CircleShape)
+fun RecipesGrid(amount: Int) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        modifier = Modifier
+            .padding(
+                start = 12.dp,
+                end = 12.dp,
+                top = 12.dp,
+                bottom = 12.dp
+            )
+    ) {
+        items(amount) { i ->
+            RecipeCard(Recipe("YumYum", "Schmackofatz"))
+            Spacer(modifier = Modifier.height(4.dp))
+        }
+    }
+}
 
-        )
 
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(text = msg.author)
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(text = msg.body)
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RecipeCard(rec: Recipe) {
+    ElevatedCard(
+        onClick = { /* Do something */ },
+        modifier = Modifier.size(width = 180.dp, height = 250.dp)
+
+    ) {
+        Box(Modifier.fillMaxSize()) {
+            Column {
+                Image(
+                    painter = painterResource(R.drawable.testpic),
+                    contentDescription = "test picture",
+                    modifier = Modifier
+                        .size(180.dp)
+                        .clip(CircleShape)
+
+                )
+                Row() {
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Column() {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(text = rec.title)
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(text = rec.text)
+                    }
+
+                }
+
+            }
+        }
     }
 }
 
 @Preview
 @Composable
-fun PreviewMessageCard() {
-    ComposeTutorialTheme {
-        Surface {
-            MessageCard(
-                msg = Message("Colleague", "Take a look at Jetpack Compose, it's great!")
-            )
-        }
-    }
+fun PreviewConversation() {
+        RecipesGrid(10)
 }
+
 
 
