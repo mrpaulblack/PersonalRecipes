@@ -1,6 +1,5 @@
 package com.github.mrpaulblack.personalrecipes
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.compose.material.Scaffold
@@ -45,3 +44,39 @@ class MainActivity : AppCompatActivity() {
 // this prevents opening the same route multiple times on the stack when for example the same tab is pressed on an always visible nav bar
 fun NavHostController.navigateSingleTop(route: String) =
     this.navigate(route) { launchSingleTop = true }
+data class Message(val author: String, val body: String)
+
+@Composable
+fun MessageCard(msg: Message) {
+    Column {
+        Image(
+            painter = painterResource(R.drawable.testpic),
+            contentDescription = "test picture",
+            modifier = Modifier
+                // Set image size to 40 dp
+                .size(150.dp)
+                // Clip image to be shaped as a circle
+                .clip(CircleShape)
+
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(text = msg.author)
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(text = msg.body)
+    }
+}
+
+@Preview
+@Composable
+fun PreviewMessageCard() {
+    ComposeTutorialTheme {
+        Surface {
+            MessageCard(
+                msg = Message("Colleague", "Take a look at Jetpack Compose, it's great!")
+            )
+        }
+    }
+}
+
+
