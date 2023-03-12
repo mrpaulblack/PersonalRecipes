@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaterialTheme {
                 Surface() {
-                    RecipesGrid(amount = 5)
+                    RecipesGrid(amount = 12)
                 }
             }
         }
