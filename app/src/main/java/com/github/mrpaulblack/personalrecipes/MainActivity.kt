@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.github.mrpaulblack.personalrecipes.ui.counter.CounterView
 import com.github.mrpaulblack.personalrecipes.ui.home.HomeView
 import com.github.mrpaulblack.personalrecipes.ui.nav.NavBar
+import com.github.mrpaulblack.personalrecipes.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : AppCompatActivity() {
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-            MaterialTheme {
+            AppTheme (content = {
                 Scaffold(
                     topBar = { TopAppBar(title = { Text(navController.currentBackStackEntryAsState().value?.destination?.route ?: "Personal Recipes")}) },
                     bottomBar = { NavBar.Content(
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                         composable(CounterView.route) { CounterView.Content() }
                     }
                 }
-            }
+            })
         }
     }
 }
