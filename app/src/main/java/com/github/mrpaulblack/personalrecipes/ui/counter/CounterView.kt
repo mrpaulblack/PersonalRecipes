@@ -12,6 +12,8 @@ import androidx.compose.ui.Alignment
 object CounterView {
     private val viewModel = CounterViewModel()
 
+    const val route: String = "counter"
+
     @Composable
     fun Content() {
         // define State<T> for recomposition

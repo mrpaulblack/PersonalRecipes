@@ -4,14 +4,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
+import com.github.mrpaulblack.personalrecipes.ui.counter.CounterView
 
 object MainView {
+    const val route: String = "main"
     @Composable
-    fun Content(navController: NavController) {
+    fun Content(onClick: (newScreen: String) -> Unit) {
         Column {
             Text(text = "Welcome!")
-            Button(onClick = { navController.navigate("counter") }) {
+            Button(onClick = { onClick(CounterView.route) }) {
                 Text(text = "Continue")
             }
         }
