@@ -1,20 +1,15 @@
 package com.github.mrpaulblack.personalrecipes.ui.home
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.github.mrpaulblack.personalrecipes.ui.counter.CounterView
 
 object HomeView {
-    const val route: String = "main"
+    const val route: String = "home"
     @Composable
-    fun Content(onClick: ((newScreen: String) -> Unit)) {
+    fun Content() {
         Column {
             Text(text = "Welcome!")
-            Button(onClick = { onClick(CounterView.route) }) {
-                Text(text = "Continue")
-            }
         }
     }
 }
