@@ -1,8 +1,8 @@
 package com.github.mrpaulblack.personalrecipes
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,7 +21,7 @@ import com.github.mrpaulblack.personalrecipes.ui.recipesoverview.RecipesOverview
 import com.github.mrpaulblack.personalrecipes.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
