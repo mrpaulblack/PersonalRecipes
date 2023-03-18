@@ -3,10 +3,12 @@ package com.github.mrpaulblack.personalrecipes
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.github.mrpaulblack.personalrecipes.ui.counter.CounterView
 import com.github.mrpaulblack.personalrecipes.ui.home.HomeView
 import com.github.mrpaulblack.personalrecipes.ui.nav.NavBar
+import com.github.mrpaulblack.personalrecipes.ui.recipesoverview.RecipesOverviewView
 import com.github.mrpaulblack.personalrecipes.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,10 +33,14 @@ class MainActivity : AppCompatActivity() {
                         currentRoute= navController.currentBackStackEntryAsState(),
                         onClick = { route -> navController.navigateSingleTop(route) }
                     ) }
-                ) {
+                ) { paddingValues ->
                     NavHost(navController, startDestination = HomeView.route) {
                         composable(HomeView.route) { HomeView.Content() }
                         composable(CounterView.route) { CounterView.Content() }
+                        composable(RecipesOverviewView.route) {RecipesOverviewView.Content(
+                            amount = 12,
+                            modifier = Modifier.padding(paddingValues)
+                        )}
                     }
                 }
             }

@@ -1,4 +1,4 @@
-package com.github.mrpaulblack.personalrecipes.ui.detailedRecipes
+package com.github.mrpaulblack.personalrecipes.ui.recipe
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 
 object DetailedRecipes {
-    val route: String = "Detailed recipes"
+    const val route: String = "recipe"
 
     val label: String = "NoTitel"
     val calories: Int = 0

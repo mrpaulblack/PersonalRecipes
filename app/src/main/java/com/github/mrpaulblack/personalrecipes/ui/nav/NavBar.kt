@@ -3,6 +3,7 @@ package com.github.mrpaulblack.personalrecipes.ui.nav
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -12,6 +13,7 @@ import androidx.compose.runtime.State
 import androidx.navigation.NavBackStackEntry
 import com.github.mrpaulblack.personalrecipes.ui.counter.CounterView
 import com.github.mrpaulblack.personalrecipes.ui.home.HomeView
+import com.github.mrpaulblack.personalrecipes.ui.recipesoverview.RecipesOverviewView
 
 object NavBar {
     private val navBarItems = listOf<NavBarItem>(
@@ -24,6 +26,11 @@ object NavBar {
             name = "Counter",
             route = CounterView.route,
             icon = Icons.Default.Calculate
+        ),
+        NavBarItem(
+            name = "Recipes Overview",
+            route = RecipesOverviewView.route,
+            icon = Icons.Default.Settings
         )
     )
 
