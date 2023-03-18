@@ -7,7 +7,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.MaterialTheme
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-            AppTheme (content = {
+            AppTheme {
                 Scaffold(
                     topBar = { TopAppBar(title = { Text(navController.currentBackStackEntryAsState().value?.destination?.route ?: "Personal Recipes")}) },
                     bottomBar = { NavBar.Content(
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                         composable(CounterView.route) { CounterView.Content() }
                     }
                 }
-            })
+            }
         }
     }
 }
