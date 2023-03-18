@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
@@ -20,8 +21,8 @@ object RecipesOverviewView {
 
     @Composable
     fun Content(modifier: Modifier = Modifier) {
-        val recipesList: MutableList<RecipeModel> by viewModel.recipesList.observeAsState(
-            initial = mutableListOf()
+        val recipesList: List<RecipeModel> by viewModel.recipesList.observeAsState(
+            initial = listOf()
         )
 
         LazyVerticalGrid(
@@ -60,14 +61,16 @@ object RecipesOverviewView {
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
                                 text = rec.label,
-                                style = MaterialTheme.typography.labelLarge
+                                style = MaterialTheme.typography.labelLarge,
+                                overflow = TextOverflow.Ellipsis
                             )
 
                             Spacer(modifier = Modifier.height(2.dp))
                             Text(
                                 text = rec.source,
                                 style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.secondary
+                                color = MaterialTheme.colorScheme.secondary,
+                                overflow = TextOverflow.Ellipsis
                             )
                         }
 
