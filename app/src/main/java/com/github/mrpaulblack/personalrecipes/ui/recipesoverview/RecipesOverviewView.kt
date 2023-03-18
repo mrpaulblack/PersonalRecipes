@@ -1,6 +1,5 @@
 package com.github.mrpaulblack.personalrecipes.ui.recipesoverview
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -10,11 +9,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.github.mrpaulblack.personalrecipes.R
+import coil.compose.AsyncImage
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
-import com.github.mrpaulblack.personalrecipes.data.models.RecipesDetailModel
 
 object RecipesOverviewView {
     private val viewModel = RecipesOverviewViewModel()
@@ -23,16 +20,18 @@ object RecipesOverviewView {
 
     @Composable
     fun Content(modifier: Modifier = Modifier) {
-        val recipesList: MutableList<RecipesDetailModel> by viewModel.recipesList.observeAsState(initial = mutableListOf<RecipesDetailModel>())
+        val recipesList: MutableList<RecipeModel> by viewModel.recipesList.observeAsState(
+            initial = mutableListOf()
+        )
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = modifier
+            modifier = modifier.fillMaxSize()
         ) {
             items (recipesList.size) {
-                RecipeCard(RecipeModel(recipesList[it].label, recipesList[it].uri))
+                RecipeCard(recipesList[it])
             }
         }
     }
@@ -47,9 +46,9 @@ object RecipesOverviewView {
         ) {
             Box(Modifier.fillMaxSize()) {
                 Column {
-                    Image(
-                        painter = painterResource(R.drawable.testpic),
-                        contentDescription = "test picture",
+                    AsyncImage(
+                        model = rec.image,
+                        contentDescription = rec.source,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .width(180.dp)
@@ -59,9 +58,17 @@ object RecipesOverviewView {
                         Spacer(modifier = Modifier.width(16.dp))
                         Column {
                             Spacer(modifier = Modifier.height(4.dp))
-                            Text(text = rec.title)
+                            Text(
+                                text = rec.label,
+                                style = MaterialTheme.typography.labelLarge
+                            )
+
                             Spacer(modifier = Modifier.height(2.dp))
-                            Text(text = rec.text)
+                            Text(
+                                text = rec.source,
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.secondary
+                            )
                         }
 
                     }
@@ -71,4 +78,3 @@ object RecipesOverviewView {
         }
     }
 }
-
