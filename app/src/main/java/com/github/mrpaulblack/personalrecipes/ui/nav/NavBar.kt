@@ -16,7 +16,7 @@ import com.github.mrpaulblack.personalrecipes.ui.home.HomeView
 import com.github.mrpaulblack.personalrecipes.ui.recipesoverview.RecipesOverviewView
 
 object NavBar {
-    private val navBarItems = listOf<NavBarItem>(
+    private val navBarItems = listOf(
         NavBarItem(
             name = "Home",
             route = HomeView.route,
@@ -36,8 +36,8 @@ object NavBar {
 
     @Composable
     fun Content(currentRoute: State<NavBackStackEntry?>, onClick: (route: String) -> Unit) {
-        NavigationBar() {
-            navBarItems.forEach {it ->
+        NavigationBar {
+            navBarItems.forEach {
                 NavigationBarItem(
                     icon = { Icon(it.icon, contentDescription = it.name) },
                     label = { Text(it.name)},

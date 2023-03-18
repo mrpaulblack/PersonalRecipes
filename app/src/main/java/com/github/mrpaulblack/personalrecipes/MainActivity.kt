@@ -28,7 +28,10 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             AppTheme {
                 Scaffold(
-                    topBar = { TopAppBar(title = { Text(navController.currentBackStackEntryAsState().value?.destination?.route ?: "Personal Recipes")}) },
+                    topBar = { TopAppBar(title = { Text(
+                        navController.currentBackStackEntryAsState().value?.destination?.route ?:
+                        "Personal Recipes"
+                    ) })},
                     bottomBar = { NavBar.Content(
                         currentRoute= navController.currentBackStackEntryAsState(),
                         onClick = { route -> navController.navigateSingleTop(route) }
@@ -37,10 +40,7 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController, startDestination = HomeView.route) {
                         composable(HomeView.route) { HomeView.Content() }
                         composable(CounterView.route) { CounterView.Content() }
-                        composable(RecipesOverviewView.route) {RecipesOverviewView.Content(
-                            amount = 12,
-                            modifier = Modifier.padding(paddingValues)
-                        )}
+                        composable(RecipesOverviewView.route) {RecipesOverviewView.Content(modifier = Modifier.padding(paddingValues))}
                     }
                 }
             }

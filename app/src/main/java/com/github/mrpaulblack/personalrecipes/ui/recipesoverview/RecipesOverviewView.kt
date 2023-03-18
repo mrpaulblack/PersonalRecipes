@@ -6,39 +6,36 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.mrpaulblack.personalrecipes.R
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
-
-
-@Preview
-@Composable
-fun PreviewConversation() {
-    RecipesOverviewView.Content(10)
-}
-
+import com.github.mrpaulblack.personalrecipes.data.models.RecipesDetailModel
 
 object RecipesOverviewView {
+    private val viewModel = RecipesOverviewViewModel()
+
     const val route: String = "recipesoverview"
 
     @Composable
-    fun Content(amount: Int, modifier: Modifier = Modifier) {
+    fun Content(modifier: Modifier = Modifier) {
+        val recipesList: MutableList<RecipesDetailModel> by viewModel.recipesList.observeAsState(initial = mutableListOf<RecipesDetailModel>())
+
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = modifier
         ) {
-            items(amount) { i ->
-                RecipeCard(RecipeModel("YumYum", i.toString()))
+            items (recipesList.size) {
+                RecipeCard(RecipeModel(recipesList[it].label, recipesList[it].uri))
             }
         }
     }
-
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
@@ -74,3 +71,4 @@ object RecipesOverviewView {
         }
     }
 }
+
