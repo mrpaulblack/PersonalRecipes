@@ -5,9 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -20,7 +17,6 @@ import com.github.mrpaulblack.personalrecipes.ui.nav.NavBar
 import com.github.mrpaulblack.personalrecipes.ui.recipesoverview.RecipesOverviewView
 import com.github.mrpaulblack.personalrecipes.ui.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +24,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             AppTheme {
                 Scaffold(
-                    topBar = { TopAppBar(title = { Text(
-                        navController.currentBackStackEntryAsState().value?.destination?.route ?:
-                        "Personal Recipes"
-                    ) })},
+                    topBar = { },
                     bottomBar = { NavBar.Content(
                         currentRoute= navController.currentBackStackEntryAsState(),
                         onClick = { route -> navController.navigateSingleTop(route) }

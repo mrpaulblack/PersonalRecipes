@@ -25,14 +25,17 @@ object RecipesOverviewView {
             initial = listOf()
         )
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+        Surface(
             modifier = modifier.fillMaxSize()
         ) {
-            items (recipesList.size) {
-                RecipeCard(recipesList[it])
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items (recipesList.size) {
+                    RecipeCard(recipesList[it])
+                }
             }
         }
     }
