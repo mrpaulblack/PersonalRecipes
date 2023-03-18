@@ -1,5 +1,6 @@
 package com.github.mrpaulblack.personalrecipes.ui.recipesoverview
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -14,10 +15,10 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 
-object RecipesOverviewView {
-    private val viewModel = RecipesOverviewViewModel()
+object RecipesListView {
+    private val viewModel = RecipesListViewModel()
 
-    const val route: String = "recipesoverview"
+    const val route: String = "recipesList"
 
     @Composable
     fun Content(modifier: Modifier = Modifier) {
@@ -28,13 +29,20 @@ object RecipesOverviewView {
         Surface(
             modifier = modifier.fillMaxSize()
         ) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                items (recipesList.size) {
-                    RecipeCard(recipesList[it])
+            Column() {
+                AnimatedVisibility(visible = recipesList.isEmpty()) {
+                    LinearProgressIndicator(modifier = Modifier
+                        .height(2.dp)
+                        .fillMaxWidth())
+                }
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items (recipesList.size) {
+                        RecipeCard(recipesList[it])
+                    }
                 }
             }
         }
@@ -65,7 +73,8 @@ object RecipesOverviewView {
                             Text(
                                 text = rec.label,
                                 style = MaterialTheme.typography.labelLarge,
-                                overflow = TextOverflow.Ellipsis
+                                overflow = TextOverflow.Ellipsis,
+                                maxLines = 1
                             )
 
                             Spacer(modifier = Modifier.height(2.dp))
@@ -73,12 +82,11 @@ object RecipesOverviewView {
                                 text = rec.source,
                                 style = MaterialTheme.typography.labelSmall,
                                 color = MaterialTheme.colorScheme.secondary,
-                                overflow = TextOverflow.Ellipsis
+                                overflow = TextOverflow.Ellipsis,
+                                maxLines = 1
                             )
                         }
-
                     }
-
                 }
             }
         }
