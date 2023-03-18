@@ -18,6 +18,7 @@ import com.github.mrpaulblack.personalrecipes.ui.counter.CounterView
 import com.github.mrpaulblack.personalrecipes.ui.home.HomeView
 import com.github.mrpaulblack.personalrecipes.ui.nav.NavBar
 import com.github.mrpaulblack.personalrecipes.ui.recipesoverview.RecipesOverviewView
+import com.github.mrpaulblack.personalrecipes.ui.settings.Settings
 import com.github.mrpaulblack.personalrecipes.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,6 +42,7 @@ class MainActivity : ComponentActivity() {
                             amount = 12,
                             modifier = Modifier.padding(paddingValues)
                         )}
+                        composable(Settings.route) { Settings.Content() }
                     }
                 }
             }

@@ -14,6 +14,7 @@ import androidx.navigation.NavBackStackEntry
 import com.github.mrpaulblack.personalrecipes.ui.counter.CounterView
 import com.github.mrpaulblack.personalrecipes.ui.home.HomeView
 import com.github.mrpaulblack.personalrecipes.ui.recipesoverview.RecipesOverviewView
+import com.github.mrpaulblack.personalrecipes.ui.settings.Settings
 
 object NavBar {
     private val navBarItems = listOf<NavBarItem>(
@@ -30,6 +31,11 @@ object NavBar {
         NavBarItem(
             name = "Recipes Overview",
             route = RecipesOverviewView.route,
+            icon = Icons.Default.Settings
+        ),
+        NavBarItem(
+            name = "Settings",
+            route = Settings.route,
             icon = Icons.Default.Settings
         )
     )
