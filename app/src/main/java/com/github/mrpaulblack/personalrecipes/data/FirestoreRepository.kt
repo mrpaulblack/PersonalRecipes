@@ -1,8 +1,10 @@
-package com.github.mrpaulblack.personalrecipes.repository
+package com.github.mrpaulblack.personalrecipes.data
 
 import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.github.mrpaulblack.personalrecipes.data.models.RecepiesOverviewListModel
+import com.github.mrpaulblack.personalrecipes.data.models.RecipesDetailModel
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -29,9 +31,9 @@ class Firebase : IFirebase {
                 for (document in result) {
                     if (document.data != null) {
                         Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                        var recipe: RecepiesDetailedModel = RecepiesDetailedModel()
+                        var recipe: RecipesDetailModel = RecipesDetailModel()
                         if (recipe != null) {
-                            recipe = document.toObject<RecepiesDetailedModel>()!!
+                            recipe = document.toObject<RecipesDetailModel>()!!
                             recepiesOverviewList.recepies.add(recipe)
                         }
                     }
@@ -51,9 +53,9 @@ class Firebase : IFirebase {
             .addOnSuccessListener { document ->
                 if (document.data != null) {
                     Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                    var recipe: RecepiesDetailedModel = RecepiesDetailedModel()
+                    var recipe: RecipesDetailModel = RecipesDetailModel()
                     if (recipe != null) {
-                        recipe = document.toObject<RecepiesDetailedModel>()!!
+                        recipe = document.toObject<RecipesDetailModel>()!!
                         println(recipe)
                     }
                 }
@@ -61,4 +63,3 @@ class Firebase : IFirebase {
             }
     }
 }
-

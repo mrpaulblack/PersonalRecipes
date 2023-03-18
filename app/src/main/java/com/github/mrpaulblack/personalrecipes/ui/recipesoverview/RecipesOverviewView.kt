@@ -12,9 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.mrpaulblack.personalrecipes.R
-
-
-data class Recipe(val title: String, val text: String)
+import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 
 
 @Preview
@@ -36,7 +34,7 @@ object RecipesOverviewView {
             modifier = modifier
         ) {
             items(amount) { i ->
-                RecipeCard(Recipe("YumYum", i.toString()))
+                RecipeCard(RecipeModel("YumYum", i.toString()))
             }
         }
     }
@@ -44,7 +42,7 @@ object RecipesOverviewView {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    private fun RecipeCard(rec: Recipe) {
+    private fun RecipeCard(rec: RecipeModel) {
         ElevatedCard(
             onClick = { /* Do something */ },
             modifier = Modifier.size(width = 180.dp, height = 154.dp)
@@ -60,9 +58,9 @@ object RecipesOverviewView {
                             .width(180.dp)
                             .height(100.dp)
                     )
-                    Row() {
+                    Row {
                         Spacer(modifier = Modifier.width(16.dp))
-                        Column() {
+                        Column {
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(text = rec.title)
                             Spacer(modifier = Modifier.height(2.dp))

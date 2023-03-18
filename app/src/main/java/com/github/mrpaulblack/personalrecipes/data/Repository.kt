@@ -1,6 +1,7 @@
-package com.github.mrpaulblack.personalrecipes.repository
+package com.github.mrpaulblack.personalrecipes.data
 
 import androidx.lifecycle.MutableLiveData
+import com.github.mrpaulblack.personalrecipes.data.models.RecepiesOverviewListModel
 
 interface IRepository {
     fun firebaseGetOverview(): MutableLiveData<RecepiesOverviewListModel>
