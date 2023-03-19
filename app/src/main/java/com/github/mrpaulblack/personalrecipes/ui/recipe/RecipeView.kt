@@ -1,6 +1,8 @@
 package com.github.mrpaulblack.personalrecipes.ui.recipe
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.MonitorWeight
 import androidx.compose.material.icons.rounded.Scale
@@ -34,6 +36,7 @@ object RecipeView {
 
         Surface(
             modifier = modifier.fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
             Column {
                 Box(
@@ -79,55 +82,21 @@ object RecipeView {
                             value = recipe.source
                         )
                     }
-                    Text(text = stringResource(R.string.recipe_ingredients))
+                    Text(
+                        text = stringResource(R.string.recipe_ingredients),
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                    Column(
+                        modifier = Modifier.padding(12.dp)
+                    ) {
+                        RecipeCard("Health Labels: ", recipe.healthLabels)
+                        RecipeCard("Tools: ", recipe.tools)
+                        RecipeCard("Diet Labels: ", recipe.dietLabels)
+                        RecipeCard("Cautions: ", recipe.cautions)
+                    }
                 }
             }
-//            Column(
-//                horizontalAlignment = Alignment.CenterHorizontally
-//            ) {
-//                Text(
-//                    text = rec.label,
-//                    fontSize = 30.sp
-//                )
-//                Image(
-//                    painter = rememberAsyncImagePainter("https://picsum.photos/700/700"),
-//                    contentDescription = "My content description",
-//                )
-//                Row( modifier = Modifier.fillMaxWidth(),
-//                    horizontalArrangement = Arrangement.SpaceEvenly
-//                ) {
-//                    Row() {
-//                        Text(
-//                            text = "Total Weight: "
-//                        )
-//                        Text(
-//                            text = rec.totalWeight.toString()
-//                        )
-//                    }
-//                    Row() {
-//                        Text(
-//                            text = "Calories: "
-//                        )
-//                        Text(
-//                            text = rec.calories.toString()
-//                        )
-//                    }
-//                }
-//            }
-//            Column(
-//                modifier = Modifier
-//                    .padding(
-//                        start = 12.dp,
-//                        end = 12.dp,
-//                        top = 12.dp,
-//                        bottom = 12.dp
-//                    )
-//            ) {
-//                RecipeCard("Health Labels: ", rec.healthLabels)
-//                RecipeCard("Tools: ", rec.tools)
-//                RecipeCard("Diet Labels: ", rec.dietLabels)
-//                RecipeCard("Cautions: ", rec.cautions)
-//            }
         }
     }
 }

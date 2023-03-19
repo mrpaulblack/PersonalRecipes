@@ -37,8 +37,12 @@ class MainActivity : ComponentActivity() {
                             },
                             modifier = Modifier.padding(paddingValues)
                         )}
-                        composable(CounterView.route) { CounterView.Content() }
-                        composable(RecipeView.route) { RecipeView.Content() }
+                        composable(CounterView.route) { CounterView.Content(
+                            modifier = Modifier.padding(paddingValues)
+                        )}
+                        composable(RecipeView.route) { RecipeView.Content(
+                            modifier = Modifier.padding(paddingValues)
+                        )}
                     }
                 }
             }
