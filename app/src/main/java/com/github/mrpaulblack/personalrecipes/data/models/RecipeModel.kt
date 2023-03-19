@@ -1,14 +1,17 @@
 package com.github.mrpaulblack.personalrecipes.data.models
 
 data class RecipeModel(
-    var calories: Int = 0,
-    var totalWeight: Int = 0,
+    val Images: ImageModel = ImageModel(),
+    var calories: Double = 0.0,
+    val cautions: List<String> = listOf(),
+    val dietLabels: List<String> = listOf(),
+    val healthLabels: List<String> = listOf(),
     var image: String = "",
+    val ingredients: List<IngredientsModel> = listOf(),
     var label: String = "",
     var source: String = "",
-    var uri: String = "",
-    val healthLabels: List<String> = listOf(),
+    var sourceUrl: String = "",
     val tools: List<String> = listOf(),
-    val dietLabels: List<String> = listOf(),
-    val cautions: List<String> = listOf()
+    var totalWeight: Double = 0.0,
+    var uri: String = ""
 )

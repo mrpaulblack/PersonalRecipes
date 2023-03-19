@@ -79,18 +79,6 @@ fun AppTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    // set status bar color
-    val systemUiController = rememberSystemUiController()
-    if (useDarkTheme) {
-        systemUiController.setStatusBarColor(
-            color = md_theme_dark_surface
-        )
-    } else {
-        systemUiController.setStatusBarColor(
-            color = md_theme_light_surface
-        )
-    }
-
     // set color theme from dynamic scope or Color if SDK version is to old as fallback
     val dynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     val colors = when {
@@ -99,6 +87,12 @@ fun AppTheme(
         useDarkTheme -> DarkColors
         else -> LightColors
     }
+
+    // set status bar color
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setStatusBarColor(
+        color = colors.surface
+    )
 
     // material 3 theme wrapper; can be defined with colors, shapes and type(faces)
     MaterialTheme(

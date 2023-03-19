@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">PersonalRecipes</string>
+    <string name="app_name">Personal Recipes</string>
+    <string name="recipe_ingredients">Ingredients</string>
+    <string name="recipe_calories">Calories</string>
+    <string name="recipe_weight">Total Weight</string>
+    <string name="recipe_source">Source</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_counter">Counter</string>
+    <string name="nav_recipe">Recipe</string>
 </resources>
