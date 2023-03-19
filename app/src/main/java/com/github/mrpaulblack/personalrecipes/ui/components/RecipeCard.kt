@@ -28,7 +28,7 @@ object RecipeCard {
         ) {
             Column {
                 RecipeImage.Content(
-                    model = "https://picsum.photos/400/300?random=${recipe.image}", // Sadly the URL provided by the API is only available in a certain timeframe
+                    model = recipe.image, // Sadly the URL provided by the API is only available in a certain timeframe
                     contentDescription = recipe.source,
                     Modifier.height(100.dp)
                 )
