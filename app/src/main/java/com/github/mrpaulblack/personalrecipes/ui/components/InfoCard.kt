@@ -1,9 +1,6 @@
 package com.github.mrpaulblack.personalrecipes.ui.components
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
@@ -27,7 +24,7 @@ object InfoCard {
                 icon,
                 contentDescription = label,
                 tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.height(16.dp).padding(top = 2.dp)
+                modifier = Modifier.height(32.dp).padding(end = 4.dp)
             )
             Column {
                 Text(

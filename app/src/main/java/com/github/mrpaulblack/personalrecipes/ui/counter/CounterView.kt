@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,7 +35,11 @@ object CounterView {
                     onClick = { viewModel.onCounterClicked() }) {
                     Text("COUNT")
                 }
-                Text(counter.toString())
+                Text(
+                    text = counter.toString(),
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.displayLarge
+                )
             }
         }
     }
