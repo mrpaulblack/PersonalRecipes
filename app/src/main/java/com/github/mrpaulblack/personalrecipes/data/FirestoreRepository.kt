@@ -1,5 +1,7 @@
 package com.github.mrpaulblack.personalrecipes.data
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.MutableLiveData
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 import com.google.firebase.firestore.ktx.firestore
@@ -9,6 +11,7 @@ import com.google.firebase.ktx.Firebase
 interface IFirebase {
     fun getOverview(): MutableLiveData<List<RecipeModel>>
     fun getDetailedRecipe(mealName: String): MutableLiveData<RecipeModel>
+    fun query(mealName: MutableState<TextFieldValue>): MutableLiveData<List<RecipeModel>>
 }
 
 class Firebase : IFirebase {
@@ -40,6 +43,24 @@ class Firebase : IFirebase {
 
         db.collection("recipes").document(mealName).addSnapshotListener {snapshot, _ ->
             mld.value = snapshot?.toObject<RecipeModel>()
+        }
+
+        return mld
+    }
+
+    override fun query(mealName: MutableState<TextFieldValue>): MutableLiveData<List<RecipeModel>> {
+        val mld: MutableLiveData<List<RecipeModel>> =
+            MutableLiveData<List<RecipeModel>>()
+
+        println(mealName.value.text) // Like schrödinger's cat -> Only work if we print this line here fsr
+
+        db.collection("recipes")
+                // FB DB supports some query but i dident get a partial word search to work
+            .addSnapshotListener {snapshot, _ ->
+            mld.value = snapshot?.mapNotNull { it ->
+                val rec = it.toObject<RecipeModel>()
+                rec.takeIf { i -> i.label.lowercase().contains(mealName.value.text.lowercase()) }
+            }
         }
 
         return mld
