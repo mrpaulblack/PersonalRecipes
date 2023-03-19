@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Personal Recipes</string>
+    <string name="app_name" translatable="false">Personal Recipes</string>
     <string name="app_nav_back">Back</string>
     <string name="recipe_ingredients">Ingredients</string>
     <string name="recipe_calories">Calories</string>
@@ -7,6 +7,4 @@
     <string name="recipe_source">Source</string>
     <string name="nav_search">Search</string>
     <string name="nav_home">Home</string>
-    <string name="nav_counter">Counter</string>
-    <string name="nav_recipe">Recipe</string>
 </resources>

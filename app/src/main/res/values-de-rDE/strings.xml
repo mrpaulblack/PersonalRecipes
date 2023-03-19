@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_nav_back">Zurück</string>
+    <string name="recipe_ingredients">Zutaten</string>
+    <string name="recipe_calories">Kalorien</string>
+    <string name="recipe_weight">Gesamt Gewischt</string>
+    <string name="recipe_source">Quelle</string>
+    <string name="nav_search">Suche</string>
+    <string name="nav_home">Home</string>
+</resources>

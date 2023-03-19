@@ -11,7 +11,10 @@ import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 class SearchViewModel(
     private val data: IRepository
 ) : ViewModel() {
-    fun query(meal: MutableState<TextFieldValue>): MutableLiveData<List<RecipeModel>> {
-        return data.queryRecipe(meal)
+    var recipes: MutableLiveData<List<RecipeModel>> = MutableLiveData(listOf())
+
+
+    fun query(meal: MutableState<TextFieldValue>) {
+        recipes = data.queryRecipe(meal)
     }
 }

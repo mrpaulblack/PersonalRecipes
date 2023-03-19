@@ -39,8 +39,8 @@ object RecipeView {
         modifier: Modifier = Modifier,
         viewModel: RecipeViewModel = koinViewModel()
     ) {
-        val recipeName: String = backStackEntry.arguments?.getString("recipeName") ?: ""
-        val recipe: RecipeModel by viewModel.getRecipe(recipeName).observeAsState(initial = RecipeModel())
+        viewModel.setRecipe(backStackEntry.arguments?.getString("recipeName") ?: "")
+        val recipe: RecipeModel by viewModel.recipe.observeAsState(initial = RecipeModel())
 
         Surface(
             modifier = modifier

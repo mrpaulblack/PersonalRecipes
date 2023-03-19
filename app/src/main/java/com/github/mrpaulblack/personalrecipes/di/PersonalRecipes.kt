@@ -11,16 +11,15 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
 
-val appModule = module {
-    single<IRepository> { Repository() }
-
-    viewModel { RecipeViewModel(get()) }
-    viewModel { RecipesListViewModel(get()) }
-    viewModel { SearchViewModel(get()) }
-}
-
-
 class PersonalRecipes : Application() {
+    private val appModule = module {
+        single<IRepository> { Repository() }
+
+        viewModel { RecipeViewModel(get()) }
+        viewModel { RecipesListViewModel(get()) }
+        viewModel { SearchViewModel(get()) }
+    }
+
     override fun onCreate() {
         super.onCreate()
 

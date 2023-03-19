@@ -30,9 +30,8 @@ object SearchView {
         viewModel: SearchViewModel = koinViewModel()
     ) {
         val textState = remember { mutableStateOf(TextFieldValue()) }
-        val recipesList: List<RecipeModel> by viewModel.query(textState).observeAsState(
-            initial = listOf()
-        )
+        viewModel.query(textState)
+        val recipesList: List<RecipeModel> by viewModel.recipes.observeAsState(initial = listOf())
 
         Surface(
             modifier = modifier.fillMaxSize()

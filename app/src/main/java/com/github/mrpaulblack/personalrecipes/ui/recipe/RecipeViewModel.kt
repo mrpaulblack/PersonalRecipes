@@ -9,7 +9,10 @@ import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 class RecipeViewModel(
     private val data: IRepository
 ): ViewModel() {
-    fun getRecipe(recipeName: String): MutableLiveData<RecipeModel> {
-        return data.getDetailedRecipe(recipeName)
+    var recipe: MutableLiveData<RecipeModel> = MutableLiveData(RecipeModel())
+
+
+    fun setRecipe(recipeName: String) {
+        recipe = data.getDetailedRecipe(recipeName)
     }
 }
