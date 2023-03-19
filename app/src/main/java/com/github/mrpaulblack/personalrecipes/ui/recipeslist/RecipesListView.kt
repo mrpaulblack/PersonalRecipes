@@ -12,16 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 import com.github.mrpaulblack.personalrecipes.ui.components.RecipeCard
+import org.koin.androidx.compose.koinViewModel
 
 object RecipesListView {
-    private val viewModel = RecipesListViewModel()
-
     const val route: String = "recipesList"
 
     @Composable
     fun Content(
         onClick: (route: String) -> Unit,
-        modifier: Modifier = Modifier
+        modifier: Modifier = Modifier,
+        viewModel: RecipesListViewModel = koinViewModel()
     ) {
         val recipesList: List<RecipeModel> by viewModel.recipesList.observeAsState(
             initial = listOf()

@@ -15,18 +15,17 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 import com.github.mrpaulblack.personalrecipes.ui.components.RecipeCard
-import com.github.mrpaulblack.personalrecipes.ui.recipeslist.RecipesListView
+import org.koin.androidx.compose.koinViewModel
 
 object SearchView {
     const val route: String = "search"
-    private val viewModel = FilterdRecipesListViewModel()
-    val listView = RecipesListView
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun Content(
         onClick: (route: String) -> Unit,
-        modifier: Modifier = Modifier
+        modifier: Modifier = Modifier,
+        viewModel: SearchViewModel = koinViewModel()
     ) {
         val textState = remember { mutableStateOf(TextFieldValue()) }
         val recipesList: List<RecipeModel> by viewModel.query(textState).observeAsState(

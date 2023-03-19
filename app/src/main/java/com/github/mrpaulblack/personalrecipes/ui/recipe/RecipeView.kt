@@ -25,18 +25,19 @@ import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 import com.github.mrpaulblack.personalrecipes.ui.components.InfoCard
 import com.github.mrpaulblack.personalrecipes.ui.components.IngredientsCard
 import com.github.mrpaulblack.personalrecipes.ui.components.RecipeImage
+import org.koin.androidx.compose.koinViewModel
 
 object RecipeView {
-    private val viewModel = RecipeViewModel()
-
     const val route: String = "recipe"
 
     @Composable
     fun Content(
         onBack: () -> Unit,
         backStackEntry: NavBackStackEntry,
-        modifier: Modifier = Modifier
+        modifier: Modifier = Modifier,
+        viewModel: RecipeViewModel = koinViewModel()
     ) {
+
         val recipeName: String = backStackEntry.arguments?.getString("recipeName") ?: ""
         val recipe: RecipeModel by viewModel.getRecipe(recipeName).observeAsState(initial = RecipeModel())
 
