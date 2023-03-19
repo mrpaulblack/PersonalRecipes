@@ -22,11 +22,13 @@ object RecipeCard {
     ) {
         ElevatedCard(
             onClick = { onClick(RecipeView.route, recipe) },
-            modifier = modifier.height(height = 160.dp).fillMaxWidth()
+            modifier = modifier
+                .height(height = 160.dp)
+                .fillMaxWidth()
         ) {
             Column {
                 RecipeImage.Content(
-                    model = recipe.image,
+                    model = "https://picsum.photos/400/300?random=${recipe.image}", // Sadly the URL provided by the API is only available in a certain timeframe
                     contentDescription = recipe.source,
                     Modifier.height(100.dp)
                 )

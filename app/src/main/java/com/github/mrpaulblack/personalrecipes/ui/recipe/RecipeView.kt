@@ -44,7 +44,7 @@ object RecipeView {
                     contentAlignment = Alignment.BottomStart
                 ) {
                     RecipeImage.Content(
-                        model = recipe.image,
+                        model = "https://picsum.photos/400/300?random=${recipe.image}",
                         contentDescription = recipe.source,
                         Modifier.height(240.dp)
                     )
