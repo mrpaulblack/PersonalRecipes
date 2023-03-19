@@ -15,6 +15,7 @@ import com.github.mrpaulblack.personalrecipes.ui.counter.CounterView
 import com.github.mrpaulblack.personalrecipes.ui.nav.NavBar
 import com.github.mrpaulblack.personalrecipes.ui.recipe.RecipeView
 import com.github.mrpaulblack.personalrecipes.ui.recipeslist.RecipesListView
+import com.github.mrpaulblack.personalrecipes.ui.search.Search
 import com.github.mrpaulblack.personalrecipes.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,6 +31,13 @@ class MainActivity : ComponentActivity() {
                     ) }
                 ) { paddingValues ->
                     NavHost(navController, startDestination = RecipesListView.route) {
+                        composable(Search.route) { Search.Content(
+                            onClick = { route, recipe ->
+                                RecipeView.viewModel.recipe.value = recipe
+                                navController.navigate(route)
+                            },
+                            modifier = Modifier.padding(paddingValues)
+                        )}
                         composable(RecipesListView.route) {RecipesListView.Content(
                             onClick = { route, recipe ->
                                 RecipeView.viewModel.recipe.value = recipe

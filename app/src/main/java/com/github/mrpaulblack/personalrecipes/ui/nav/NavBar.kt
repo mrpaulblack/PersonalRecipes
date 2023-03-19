@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Calculate
 import androidx.compose.material.icons.rounded.Dining
 import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -16,9 +17,15 @@ import com.github.mrpaulblack.personalrecipes.R
 import com.github.mrpaulblack.personalrecipes.ui.counter.CounterView
 import com.github.mrpaulblack.personalrecipes.ui.recipe.RecipeView
 import com.github.mrpaulblack.personalrecipes.ui.recipeslist.RecipesListView
+import com.github.mrpaulblack.personalrecipes.ui.search.Search
 
 object NavBar {
     private val navBarItems = listOf(
+        NavBarItem(
+            name = R.string.nav_search,
+            route = Search.route,
+            icon = Icons.Default.Search
+        ),
         NavBarItem(
             name = R.string.nav_home,
             route = RecipesListView.route,
