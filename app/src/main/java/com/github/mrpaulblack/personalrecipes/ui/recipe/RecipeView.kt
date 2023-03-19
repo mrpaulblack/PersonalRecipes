@@ -23,11 +23,11 @@ import androidx.navigation.NavBackStackEntry
 import com.github.mrpaulblack.personalrecipes.R
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 import com.github.mrpaulblack.personalrecipes.ui.components.InfoCard
-import com.github.mrpaulblack.personalrecipes.ui.components.IngredientCard
+import com.github.mrpaulblack.personalrecipes.ui.components.IngredientsCard
 import com.github.mrpaulblack.personalrecipes.ui.components.RecipeImage
 
 object RecipeView {
-    val viewModel = RecipeViewModel()
+    private val viewModel = RecipeViewModel()
 
     const val route: String = "recipe"
 
@@ -100,12 +100,13 @@ object RecipeView {
                             value = recipe.source
                         )
                     }
+                    Spacer(modifier = Modifier.height(24.dp))
                     Text(
                         text = stringResource(R.string.recipe_ingredients),
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.headlineMedium
                     )
-                    IngredientCard.Content()
+                    IngredientsCard.Content(recipe.ingredients)
                     Column(
                         modifier = Modifier.padding(12.dp)
                     ) {
@@ -118,26 +119,26 @@ object RecipeView {
             }
         }
     }
-}
 
-@Composable
-fun RecipeCard(title: String, list: List<String>) {
-    Text(
-        text = title,
-        modifier = Modifier
-            .padding(
-                top = 12.dp,
-            )
-    )
-    for (l in list) {
-        Row( modifier = Modifier
-            .padding(
-                start = 12.dp,
-            )
-        ) {
-            Text(
-                text = l
-            )
+    @Composable
+    private fun RecipeCard(title: String, list: List<String>) {
+        Text(
+            text = title,
+            modifier = Modifier
+                .padding(
+                    top = 12.dp,
+                )
+        )
+        for (l in list) {
+            Row( modifier = Modifier
+                .padding(
+                    start = 12.dp,
+                )
+            ) {
+                Text(
+                    text = l
+                )
+            }
         }
     }
 }
