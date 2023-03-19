@@ -12,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.github.mrpaulblack.personalrecipes.data.models.IngredientsModel
 
+
 object IngredientsCard {
     @Composable
     fun Content(

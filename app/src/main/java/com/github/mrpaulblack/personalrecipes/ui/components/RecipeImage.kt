@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
 
+
 object RecipeImage {
     @Composable
     fun Content(model: Any, contentDescription: String, modifier: Modifier = Modifier) {

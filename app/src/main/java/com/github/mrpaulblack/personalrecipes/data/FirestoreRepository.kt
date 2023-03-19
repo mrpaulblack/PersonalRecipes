@@ -8,14 +8,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
-interface IFirebase {
-    fun getOverview(): MutableLiveData<List<RecipeModel>>
-    fun getDetailedRecipe(mealName: String): MutableLiveData<RecipeModel>
-    fun query(mealName: MutableState<TextFieldValue>): MutableLiveData<List<RecipeModel>>
-}
 
-class Firebase : IFirebase {
+class Firebase : IRepository {
     private val db = Firebase.firestore
+
 
     /**
      * @return List Of recipes
@@ -33,6 +29,7 @@ class Firebase : IFirebase {
         return mld
     }
 
+
     /**
      * @param mealName name of a meal
      * @return detailed recipes
@@ -48,18 +45,19 @@ class Firebase : IFirebase {
         return mld
     }
 
-    override fun query(mealName: MutableState<TextFieldValue>): MutableLiveData<List<RecipeModel>> {
+
+    override fun queryRecipe(query: MutableState<TextFieldValue>): MutableLiveData<List<RecipeModel>> {
         val mld: MutableLiveData<List<RecipeModel>> =
             MutableLiveData<List<RecipeModel>>()
 
-        println(mealName.value.text) // Like schrödinger's cat -> Only work if we print this line here fsr
+        println(query.value.text) // Like schrödinger's cat -> Only work if we print this line here fsr
 
         db.collection("recipes")
                 // FB DB supports some query but i dident get a partial word search to work
             .addSnapshotListener {snapshot, _ ->
             mld.value = snapshot?.mapNotNull { it ->
                 val rec = it.toObject<RecipeModel>()
-                rec.takeIf { i -> i.label.lowercase().contains(mealName.value.text.lowercase()) }
+                rec.takeIf { i -> i.label.lowercase().contains(query.value.text.lowercase()) }
             }
         }
 

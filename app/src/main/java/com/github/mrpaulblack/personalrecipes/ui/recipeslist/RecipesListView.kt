@@ -14,8 +14,10 @@ import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 import com.github.mrpaulblack.personalrecipes.ui.components.RecipeCard
 import org.koin.androidx.compose.koinViewModel
 
+
 object RecipesListView {
     const val route: String = "recipesList"
+
 
     @Composable
     fun Content(

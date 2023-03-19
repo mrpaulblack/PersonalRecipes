@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 import com.github.mrpaulblack.personalrecipes.ui.recipe.RecipeView
 
+
 object RecipeCard {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable

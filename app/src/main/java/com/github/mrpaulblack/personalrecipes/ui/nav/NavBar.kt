@@ -15,6 +15,7 @@ import com.github.mrpaulblack.personalrecipes.R
 import com.github.mrpaulblack.personalrecipes.ui.recipeslist.RecipesListView
 import com.github.mrpaulblack.personalrecipes.ui.search.SearchView
 
+
 object NavBar {
     private val navBarItems = listOf(
         NavBarItem(
@@ -28,6 +29,7 @@ object NavBar {
             icon = Icons.Rounded.Home
         )
     )
+
 
     @Composable
     fun Content(currentRoute: State<NavBackStackEntry?>, onClick: (route: String) -> Unit) {

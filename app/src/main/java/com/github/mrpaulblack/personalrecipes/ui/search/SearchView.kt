@@ -17,8 +17,10 @@ import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 import com.github.mrpaulblack.personalrecipes.ui.components.RecipeCard
 import org.koin.androidx.compose.koinViewModel
 
+
 object SearchView {
     const val route: String = "search"
+
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable

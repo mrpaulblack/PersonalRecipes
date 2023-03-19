@@ -27,8 +27,10 @@ import com.github.mrpaulblack.personalrecipes.ui.components.IngredientsCard
 import com.github.mrpaulblack.personalrecipes.ui.components.RecipeImage
 import org.koin.androidx.compose.koinViewModel
 
+
 object RecipeView {
     const val route: String = "recipe"
+
 
     @Composable
     fun Content(
@@ -37,7 +39,6 @@ object RecipeView {
         modifier: Modifier = Modifier,
         viewModel: RecipeViewModel = koinViewModel()
     ) {
-
         val recipeName: String = backStackEntry.arguments?.getString("recipeName") ?: ""
         val recipe: RecipeModel by viewModel.getRecipe(recipeName).observeAsState(initial = RecipeModel())
 
@@ -120,6 +121,7 @@ object RecipeView {
             }
         }
     }
+
 
     @Composable
     private fun RecipeCard(title: String, list: List<String>) {

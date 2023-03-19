@@ -5,22 +5,22 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.MutableLiveData
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 
-interface IRepository {
-    fun firebaseGetOverview(): MutableLiveData<List<RecipeModel>>
-    fun firebaseGetDetailedRecipe(meal: String): MutableLiveData<RecipeModel>
-    fun firebaseQueryRecipe(meal: MutableState<TextFieldValue>): MutableLiveData<List<RecipeModel>>
-}
 
 class Repository : IRepository {
-    private val firebaseDB: IFirebase = Firebase()
+    private val firebaseDB: IRepository = Firebase()
 
-    override fun firebaseGetOverview(): MutableLiveData<List<RecipeModel>> {
+
+    override fun getOverview(): MutableLiveData<List<RecipeModel>> {
         return firebaseDB.getOverview()
     }
-    override fun firebaseGetDetailedRecipe(meal: String): MutableLiveData<RecipeModel> {
+
+
+    override fun getDetailedRecipe(meal: String): MutableLiveData<RecipeModel> {
         return firebaseDB.getDetailedRecipe(meal)
     }
-    override fun firebaseQueryRecipe(query: MutableState<TextFieldValue>): MutableLiveData<List<RecipeModel>> {
-        return firebaseDB.query(query)
+
+
+    override fun queryRecipe(query: MutableState<TextFieldValue>): MutableLiveData<List<RecipeModel>> {
+        return firebaseDB.queryRecipe(query)
     }
 }

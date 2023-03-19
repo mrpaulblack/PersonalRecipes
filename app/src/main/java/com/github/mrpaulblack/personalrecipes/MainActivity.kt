@@ -19,6 +19,7 @@ import com.github.mrpaulblack.personalrecipes.ui.recipeslist.RecipesListView
 import com.github.mrpaulblack.personalrecipes.ui.search.SearchView
 import com.github.mrpaulblack.personalrecipes.ui.theme.AppTheme
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +60,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 
 // NavController extension
 // this prevents opening the same route multiple times on the stack

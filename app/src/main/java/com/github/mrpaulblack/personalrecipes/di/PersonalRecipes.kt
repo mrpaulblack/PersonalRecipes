@@ -10,6 +10,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
+
 val appModule = module {
     single<IRepository> { Repository() }
 
@@ -17,6 +18,7 @@ val appModule = module {
     viewModel { RecipesListViewModel(get()) }
     viewModel { SearchViewModel(get()) }
 }
+
 
 class PersonalRecipes : Application() {
     override fun onCreate() {
