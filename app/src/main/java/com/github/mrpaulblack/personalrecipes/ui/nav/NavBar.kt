@@ -1,7 +1,6 @@
 package com.github.mrpaulblack.personalrecipes.ui.nav
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Calculate
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Icon
@@ -13,7 +12,6 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavBackStackEntry
 import com.github.mrpaulblack.personalrecipes.R
-import com.github.mrpaulblack.personalrecipes.ui.counter.CounterView
 import com.github.mrpaulblack.personalrecipes.ui.recipeslist.RecipesListView
 import com.github.mrpaulblack.personalrecipes.ui.search.SearchView
 
@@ -28,11 +26,6 @@ object NavBar {
             name = R.string.nav_home,
             route = RecipesListView.route,
             icon = Icons.Rounded.Home
-        ),
-        NavBarItem(
-            name = R.string.nav_counter,
-            route = CounterView.route,
-            icon = Icons.Rounded.Calculate
         )
     )
 

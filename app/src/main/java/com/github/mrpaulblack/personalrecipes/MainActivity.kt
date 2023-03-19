@@ -13,7 +13,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.github.mrpaulblack.personalrecipes.ui.counter.CounterView
 import com.github.mrpaulblack.personalrecipes.ui.nav.NavBar
 import com.github.mrpaulblack.personalrecipes.ui.recipe.RecipeView
 import com.github.mrpaulblack.personalrecipes.ui.recipeslist.RecipesListView
@@ -43,11 +42,9 @@ class MainActivity : ComponentActivity() {
                             onClick = { route -> navController.navigate(route) },
                             modifier = Modifier.padding(paddingValues)
                         )}
-                        // counter view on navbar
-                        composable(CounterView.route) { CounterView.Content(modifier = Modifier.padding(paddingValues)) }
                         // recipe detail view for a specific recipe
                         composable(
-                            "${RecipeView.route}/{recipeName}",
+                            route = "${RecipeView.route}/{recipeName}",
                             arguments = listOf(navArgument("recipeName") { type = NavType.StringType })
                         ) { backStackEntry ->
                             RecipeView.Content(
