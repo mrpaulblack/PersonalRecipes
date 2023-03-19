@@ -17,7 +17,7 @@ import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 import com.github.mrpaulblack.personalrecipes.ui.components.RecipeCard
 import com.github.mrpaulblack.personalrecipes.ui.recipeslist.RecipesListView
 
-object Search {
+object SearchView {
     const val route: String = "search"
     private val viewModel = FilterdRecipesListViewModel()
     val listView = RecipesListView
@@ -25,15 +25,16 @@ object Search {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun Content(
-            modifier: Modifier = Modifier,
-            onClick: (route: String, recipe: RecipeModel) -> Unit,
-        ) {
-            val textState = remember { mutableStateOf(TextFieldValue()) }
-            val recipesList: List<RecipeModel> by viewModel.query(textState).observeAsState(
-                initial = listOf()
-            )
+        onClick: (route: String) -> Unit,
+        modifier: Modifier = Modifier
+    ) {
+        val textState = remember { mutableStateOf(TextFieldValue()) }
+        val recipesList: List<RecipeModel> by viewModel.query(textState).observeAsState(
+            initial = listOf()
+        )
 
-            Surface(
+        Surface(
+            modifier = modifier.fillMaxSize()
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
                 Row() {

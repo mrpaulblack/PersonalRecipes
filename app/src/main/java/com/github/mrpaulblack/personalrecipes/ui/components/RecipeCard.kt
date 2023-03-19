@@ -17,11 +17,11 @@ object RecipeCard {
     @Composable
     fun Content(
         recipe: RecipeModel,
-        onClick: (route: String, recipe: RecipeModel) -> Unit,
+        onClick: (route: String) -> Unit,
         modifier: Modifier = Modifier
     ) {
         ElevatedCard(
-            onClick = { onClick(RecipeView.route, recipe) },
+            onClick = { onClick("${RecipeView.route}/${recipe.label}") },
             modifier = modifier.height(height = 160.dp).fillMaxWidth()
         ) {
             Column {

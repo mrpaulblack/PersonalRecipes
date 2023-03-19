@@ -20,7 +20,7 @@ object RecipesListView {
 
     @Composable
     fun Content(
-        onClick: (route: String, recipe: RecipeModel) -> Unit,
+        onClick: (route: String) -> Unit,
         modifier: Modifier = Modifier
     ) {
         val recipesList: List<RecipeModel> by viewModel.recipesList.observeAsState(

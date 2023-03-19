@@ -4,12 +4,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.MonitorWeight
 import androidx.compose.material.icons.rounded.Scale
 import androidx.compose.material.icons.rounded.Source
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -20,9 +19,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavBackStackEntry
 import com.github.mrpaulblack.personalrecipes.R
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 import com.github.mrpaulblack.personalrecipes.ui.components.InfoCard
+import com.github.mrpaulblack.personalrecipes.ui.components.IngredientCard
 import com.github.mrpaulblack.personalrecipes.ui.components.RecipeImage
 
 object RecipeView {
@@ -31,11 +32,17 @@ object RecipeView {
     const val route: String = "recipe"
 
     @Composable
-    fun Content(modifier: Modifier = Modifier) {
-        val recipe: RecipeModel by viewModel.recipe.observeAsState(initial = RecipeModel())
+    fun Content(
+        onBack: () -> Unit,
+        backStackEntry: NavBackStackEntry,
+        modifier: Modifier = Modifier
+    ) {
+        val recipeName: String = backStackEntry.arguments?.getString("recipeName") ?: ""
+        val recipe: RecipeModel by viewModel.getRecipe(recipeName).observeAsState(initial = RecipeModel())
 
         Surface(
-            modifier = modifier.fillMaxSize()
+            modifier = modifier
+                .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
             Column {
@@ -48,18 +55,29 @@ object RecipeView {
                         contentDescription = recipe.source,
                         Modifier.height(240.dp)
                     )
-                    Text(
-                        text = recipe.label,
-                        style = MaterialTheme.typography.headlineLarge.copy(
-                            shadow = Shadow (
-                                color = Color.Black,
-                                offset = Offset (4f, 4f),
-                                blurRadius = 8f
-                            )
-                        ),
-                        color = Color.White,
+                    Column(
                         modifier = Modifier.padding(12.dp)
-                    )
+                    ) {
+                        IconButton(onClick = { onBack() }) {
+                            Icon(
+                                imageVector = Icons.Rounded.ArrowBack,
+                                contentDescription = stringResource(R.string.app_nav_back),
+                                tint = Color.White
+                            )
+                        }
+                        Text(
+                            text = recipe.label,
+                            style = MaterialTheme.typography.headlineLarge.copy(
+                                shadow = Shadow (
+                                    color = Color.Black,
+                                    offset = Offset (4f, 4f),
+                                    blurRadius = 8f
+                                )
+                            ),
+                            color = Color.White,
+                            maxLines = 4
+                        )
+                    }
                 }
                 Column(modifier = Modifier.padding(12.dp)) {
                     Row(
@@ -87,6 +105,7 @@ object RecipeView {
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.headlineMedium
                     )
+                    IngredientCard.Content()
                     Column(
                         modifier = Modifier.padding(12.dp)
                     ) {
