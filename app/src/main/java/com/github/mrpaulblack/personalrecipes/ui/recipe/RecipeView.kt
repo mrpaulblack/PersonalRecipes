@@ -2,94 +2,69 @@ package com.github.mrpaulblack.personalrecipes.ui.recipe
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
+import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 
-object DetailedRecipes {
+object Recipe {
     const val route: String = "recipe"
 
-    val label: String = "NoTitel"
-    val calories: Int = 0
-    val totalWeight: Int = 0
-    val healthLabels: List<String> = listOf("Not Available")
-    val tools: List<String> = listOf("Not Available")
-    val cautions: List<String> = listOf("Not Available")
-    val dietLabels: List<String> = listOf("Not Available")
-
     @Composable
-    fun Content() {
-        ElevatedCard(
-            modifier = Modifier
-                .size(
-                    width = LocalConfiguration.current.screenWidthDp.dp,
-                    height = (LocalConfiguration.current.screenHeightDp.dp)
-                )
-                .padding(
-                    start = 12.dp,
-                    end = 12.dp,
-                    top = 12.dp,
-                    bottom = 12.dp
-                )
-
+    fun Content(rec: RecipeModel, modifier: Modifier = Modifier) {
+        Surface(
+            modifier = modifier.fillMaxSize()
         ) {
-            Column(Modifier.fillMaxSize()) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = rec.label,
+                    fontSize = 30.sp
+                )
+                Image(
+                    painter = rememberAsyncImagePainter("https://picsum.photos/700/700"),
+                    contentDescription = "My content description",
+                )
+                Row( modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     Row() {
                         Text(
-                            text = label,
-                            fontSize = 30.sp
+                            text = "Total Weight: "
+                        )
+                        Text(
+                            text = rec.totalWeight.toString()
                         )
                     }
                     Row() {
-                        Image(
-                            painter = rememberImagePainter("https://picsum.photos/700/700"),
-                            contentDescription = "My content description",
+                        Text(
+                            text = "Calories: "
+                        )
+                        Text(
+                            text = rec.calories.toString()
                         )
                     }
-                    Row( modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly
-                    ) {
-                        Row() {
-                            Text(
-                                text = "Total Weight: "
-                            )
-                            Text(
-                                text = totalWeight.toString()
-                            )
-                        }
-                        Row() {
-                            Text(
-                                text = "Calories: "
-                            )
-                            Text(
-                                text = calories.toString()
-                            )
-                        }
-                    }
                 }
-                Column(
-                    modifier = Modifier
-                        .padding(
-                            start = 12.dp,
-                            end = 12.dp,
-                            top = 12.dp,
-                            bottom = 12.dp
-                        )
-                ) {
-                    RecipeCard("Health Labels: ", healthLabels)
-                    RecipeCard("Tools: ", tools)
-                    RecipeCard("Diet Labels: ", dietLabels)
-                    RecipeCard("Cautions: ", cautions)
-                }
+            }
+            Column(
+                modifier = Modifier
+                    .padding(
+                        start = 12.dp,
+                        end = 12.dp,
+                        top = 12.dp,
+                        bottom = 12.dp
+                    )
+            ) {
+                RecipeCard("Health Labels: ", rec.healthLabels)
+                RecipeCard("Tools: ", rec.tools)
+                RecipeCard("Diet Labels: ", rec.dietLabels)
+                RecipeCard("Cautions: ", rec.cautions)
             }
         }
     }

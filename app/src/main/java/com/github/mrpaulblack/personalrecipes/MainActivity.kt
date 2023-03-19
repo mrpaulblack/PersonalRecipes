@@ -11,9 +11,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 import com.github.mrpaulblack.personalrecipes.ui.counter.CounterView
 import com.github.mrpaulblack.personalrecipes.ui.nav.NavBar
-import com.github.mrpaulblack.personalrecipes.ui.recipesoverview.RecipesListView
+import com.github.mrpaulblack.personalrecipes.ui.recipe.Recipe
+import com.github.mrpaulblack.personalrecipes.ui.recipeslist.RecipesListView
 import com.github.mrpaulblack.personalrecipes.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +25,6 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             AppTheme {
                 Scaffold(
-                    topBar = { },
                     bottomBar = { NavBar.Content(
                         currentRoute= navController.currentBackStackEntryAsState(),
                         onClick = { route -> navController.navigateSingleTop(route) }
@@ -32,6 +33,7 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController, startDestination = RecipesListView.route) {
                         composable(RecipesListView.route) {RecipesListView.Content(modifier = Modifier.padding(paddingValues))}
                         composable(CounterView.route) { CounterView.Content() }
+                        composable(Recipe.route) { Recipe.Content(RecipeModel(label = "Test Recipe")) }
                     }
                 }
             }

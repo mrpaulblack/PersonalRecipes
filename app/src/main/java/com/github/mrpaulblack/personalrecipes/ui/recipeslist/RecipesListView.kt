@@ -1,4 +1,4 @@
-package com.github.mrpaulblack.personalrecipes.ui.recipesoverview
+package com.github.mrpaulblack.personalrecipes.ui.recipeslist
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
@@ -29,7 +29,7 @@ object RecipesListView {
         Surface(
             modifier = modifier.fillMaxSize()
         ) {
-            Column() {
+            Column {
                 AnimatedVisibility(visible = recipesList.isEmpty()) {
                     LinearProgressIndicator(modifier = Modifier
                         .height(2.dp)
@@ -54,39 +54,29 @@ object RecipesListView {
         ElevatedCard(
             onClick = { /* Do something */ },
             modifier = Modifier.size(width = 180.dp, height = 154.dp)
-
         ) {
-            Box(Modifier.fillMaxSize()) {
-                Column {
-                    AsyncImage(
-                        model = rec.image,
-                        contentDescription = rec.source,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .width(180.dp)
-                            .height(100.dp)
+            Column {
+                AsyncImage(
+                    model = rec.image,
+                    contentDescription = rec.source,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.height(100.dp)
+                )
+                Column(modifier = Modifier.padding(12.dp)) {
+                    Text(
+                        text = rec.label,
+                        style = MaterialTheme.typography.labelLarge,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1
                     )
-                    Row {
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Column {
-                            Spacer(modifier = Modifier.height(4.dp))
-                            Text(
-                                text = rec.label,
-                                style = MaterialTheme.typography.labelLarge,
-                                overflow = TextOverflow.Ellipsis,
-                                maxLines = 1
-                            )
-
-                            Spacer(modifier = Modifier.height(2.dp))
-                            Text(
-                                text = rec.source,
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.secondary,
-                                overflow = TextOverflow.Ellipsis,
-                                maxLines = 1
-                            )
-                        }
-                    }
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = rec.source,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.secondary,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1
+                    )
                 }
             }
         }
