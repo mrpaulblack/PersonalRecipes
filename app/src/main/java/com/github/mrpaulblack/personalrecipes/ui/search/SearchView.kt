@@ -7,8 +7,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.material3.*
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -31,7 +30,7 @@ object SearchView {
     ) {
         val textState = remember { viewModel.textState }
         viewModel.query(textState)
-        val recipesList: List<RecipeModel> by viewModel.recipes.observeAsState(initial = listOf())
+        val recipesList: MutableState<List<RecipeModel>> = remember {viewModel.recipes}
 
         Surface(
             modifier = modifier.fillMaxSize()
@@ -50,8 +49,8 @@ object SearchView {
                 Spacer(modifier = Modifier.height(12.dp))
                 LazyVerticalGrid(columns = GridCells.Fixed(1)) {
                     if (textState.value.text != "") {
-                        items (recipesList.size) {
-                            RecipeListItem.Content(recipe = recipesList[it], onClick = onClick)
+                        items (recipesList.value.size) {
+                            RecipeListItem.Content(recipe = recipesList.value[it], onClick = onClick)
                         }
                     }
                 }

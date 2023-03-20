@@ -6,8 +6,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
@@ -25,15 +25,13 @@ object RecipesListView {
         modifier: Modifier = Modifier,
         viewModel: RecipesListViewModel = koinViewModel()
     ) {
-        val recipesList: List<RecipeModel> by viewModel.recipesList.observeAsState(
-            initial = listOf()
-        )
+        val recipesList: MutableState<List<RecipeModel>> = remember {viewModel.recipesList}
 
         Surface(
             modifier = modifier.fillMaxSize()
         ) {
             Column {
-                AnimatedVisibility(visible = recipesList.isEmpty()) {
+                AnimatedVisibility(visible = recipesList.value.isEmpty()) {
                     LinearProgressIndicator(modifier = Modifier
                         .height(2.dp)
                         .fillMaxWidth())
@@ -44,8 +42,8 @@ object RecipesListView {
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                     modifier = Modifier.padding(horizontal = 12.dp)
                 ) {
-                    items (recipesList.size) {
-                        RecipeCard.Content(recipesList[it], onClick)
+                    items (recipesList.value.size) {
+                        RecipeCard.Content(recipesList.value[it], onClick)
                     }
                 }
             }
