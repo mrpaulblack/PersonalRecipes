@@ -9,14 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.material3.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.github.mrpaulblack.personalrecipes.R
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
-import com.github.mrpaulblack.personalrecipes.ui.components.RecipeCard
+import com.github.mrpaulblack.personalrecipes.ui.components.RecipeListItem
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -31,18 +29,16 @@ object SearchView {
         modifier: Modifier = Modifier,
         viewModel: SearchViewModel = koinViewModel()
     ) {
-        val textState = remember { mutableStateOf(TextFieldValue()) }
+        val textState = remember { viewModel.textState }
         viewModel.query(textState)
         val recipesList: List<RecipeModel> by viewModel.recipes.observeAsState(initial = listOf())
 
         Surface(
             modifier = modifier.fillMaxSize()
         ) {
-            Column(
-                modifier = Modifier.padding(horizontal = 12.dp)
-            ) {
+            Column {
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),
                     value = textState.value,
                     label = { Text(stringResource(R.string.nav_search)) },
                     singleLine = true,
@@ -52,14 +48,10 @@ object SearchView {
                     }
                 )
                 Spacer(modifier = Modifier.height(12.dp))
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
+                LazyVerticalGrid(columns = GridCells.Fixed(1)) {
                     if (textState.value.text != "") {
                         items (recipesList.size) {
-                            RecipeCard.Content(recipesList[it], onClick)
+                            RecipeListItem.Content(recipe = recipesList[it], onClick = onClick)
                         }
                     }
                 }
