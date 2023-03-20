@@ -1,8 +1,8 @@
 package com.github.mrpaulblack.personalrecipes.data
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.lifecycle.MutableLiveData
 import com.github.mrpaulblack.personalrecipes.data.models.RecipeModel
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -16,14 +16,14 @@ class Firebase : IRepository {
     /**
      * @return List Of recipes
      */
-    override fun getOverview(): MutableLiveData<List<RecipeModel>> {
-        val mld: MutableLiveData<List<RecipeModel>> =
-            MutableLiveData<List<RecipeModel>>()
+    override fun getOverview(): MutableState<List<RecipeModel>> {
+        val mld: MutableState<List<RecipeModel>> =
+            mutableStateOf(listOf ())
 
         db.collection("recipes").addSnapshotListener {snapshot, _ ->
             mld.value = snapshot?.mapNotNull {
                 it.toObject<RecipeModel>()
-            }
+            } ?: listOf()
         }
 
         return mld
@@ -31,34 +31,34 @@ class Firebase : IRepository {
 
 
     /**
-     * @param mealName name of a meal
+     * @param meal name of a meal
      * @return detailed recipes
      */
-    override fun getDetailedRecipe(mealName: String): MutableLiveData<RecipeModel> {
-        val mld: MutableLiveData<RecipeModel> =
-            MutableLiveData<RecipeModel>()
+    override fun getDetailedRecipe(meal: String): MutableState<RecipeModel> {
+        val mld: MutableState<RecipeModel> =
+            mutableStateOf(RecipeModel())
 
-        db.collection("recipes").document(mealName).addSnapshotListener {snapshot, _ ->
-            mld.value = snapshot?.toObject<RecipeModel>()
+        db.collection("recipes").document(meal).addSnapshotListener {snapshot, _ ->
+            mld.value = snapshot?.toObject<RecipeModel>() ?: RecipeModel()
         }
 
         return mld
     }
 
+    /**
+     * @param query Search query for names of recipes
+     * @return List of Recipes that contain the given query
+     */
+    override fun queryRecipe(query: MutableState<TextFieldValue>): MutableState<List<RecipeModel>> {
+        val mld: MutableState<List<RecipeModel>> =
+            mutableStateOf(listOf ())
 
-    override fun queryRecipe(query: MutableState<TextFieldValue>): MutableLiveData<List<RecipeModel>> {
-        val mld: MutableLiveData<List<RecipeModel>> =
-            MutableLiveData<List<RecipeModel>>()
-
-        println(query.value.text) // Like schrödinger's cat -> Only work if we print this line here fsr
-
-        db.collection("recipes")
-                // FB DB supports some query but i dident get a partial word search to work
+        db.collection("recipes").orderBy("label").startAt(query.value.text).endAt(query.value.text + '~')
+                // FB DB supports some query but i didn't get a partial word search to work
             .addSnapshotListener {snapshot, _ ->
-            mld.value = snapshot?.mapNotNull { it ->
-                val rec = it.toObject<RecipeModel>()
-                rec.takeIf { i -> i.label.lowercase().contains(query.value.text.lowercase()) }
-            }
+            mld.value = snapshot?.mapNotNull {
+                it.toObject<RecipeModel>()
+            } ?: listOf()
         }
 
         return mld

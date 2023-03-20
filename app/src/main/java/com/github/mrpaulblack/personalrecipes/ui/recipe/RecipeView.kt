@@ -10,8 +10,8 @@ import androidx.compose.material.icons.rounded.Scale
 import androidx.compose.material.icons.rounded.Source
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -40,7 +40,7 @@ object RecipeView {
         viewModel: RecipeViewModel = koinViewModel()
     ) {
         viewModel.setRecipe(backStackEntry.arguments?.getString("recipeName") ?: "")
-        val recipe: RecipeModel by viewModel.recipe.observeAsState(initial = RecipeModel())
+        val recipe: MutableState<RecipeModel> = remember { viewModel.recipe }
 
         Surface(
             modifier = modifier
@@ -53,8 +53,8 @@ object RecipeView {
                     contentAlignment = Alignment.BottomStart
                 ) {
                     RecipeImage.Content(
-                        model = recipe.image,
-                        contentDescription = recipe.source,
+                        model = recipe.value.image,
+                        contentDescription = recipe.value.source,
                         Modifier.height(240.dp)
                     )
                     Column(
@@ -68,7 +68,7 @@ object RecipeView {
                             )
                         }
                         Text(
-                            text = recipe.label,
+                            text = recipe.value.label,
                             style = MaterialTheme.typography.headlineLarge.copy(
                                 shadow = Shadow (
                                     color = Color.Black,
@@ -89,17 +89,17 @@ object RecipeView {
                         InfoCard.Content(
                             icon = Icons.Rounded.Scale,
                             label = stringResource(R.string.recipe_weight),
-                            value = String.format("%.2f", recipe.totalWeight)
+                            value = String.format("%.2f", recipe.value.totalWeight)
                         )
                         InfoCard.Content(
                             icon = Icons.Rounded.MonitorWeight,
                             label = stringResource(R.string.recipe_calories),
-                            value = String.format("%.2f", recipe.calories)
+                            value = String.format("%.2f", recipe.value.calories)
                         )
                         InfoCard.Content(
                             icon = Icons.Rounded.Source,
                             label = stringResource(R.string.recipe_source),
-                            value = recipe.source
+                            value = recipe.value.source
                         )
                     }
                     Spacer(modifier = Modifier.height(24.dp))
@@ -108,14 +108,14 @@ object RecipeView {
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.headlineMedium
                     )
-                    IngredientsCard.Content(recipe.ingredients)
+                    IngredientsCard.Content(recipe.value.ingredients)
                     Column(
                         modifier = Modifier.padding(12.dp)
                     ) {
-                        RecipeCard("Health Labels: ", recipe.healthLabels)
-                        RecipeCard("Tools: ", recipe.tools)
-                        RecipeCard("Diet Labels: ", recipe.dietLabels)
-                        RecipeCard("Cautions: ", recipe.cautions)
+                        RecipeCard("Health Labels: ", recipe.value.healthLabels)
+                        RecipeCard("Tools: ", recipe.value.tools)
+                        RecipeCard("Diet Labels: ", recipe.value.dietLabels)
+                        RecipeCard("Cautions: ", recipe.value.cautions)
                     }
                 }
             }
